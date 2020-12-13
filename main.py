@@ -31,6 +31,7 @@ pathSave = input("Please input the name of the output picture:(e.g. out.jpg, def
 if len(pathSave)<=4:
     pathSave = "1-out.jpg"
 try:
+    print("*When you see the picture is 1234X5678, the 5678 is ROW and 1234 us COL")
     rowEnterPoint = int(input("Please input the ROW enter point:(e.g.123,default:0)"))
     colEnterPoint = int(input("Please input the COLUMN enter point:(e.g.456,default:0)"))
 except:
@@ -68,7 +69,6 @@ def inq(x,y,step):
             flag[x][y] = 1
             if new_array[x][y][1] != [255,255,255]:
                 new_array[x][y][2] = step + 1
-                output[x][y] = step+1
                 q.put(new_array[x][y])
     return
 
@@ -96,9 +96,15 @@ def main(pathLoad,pathSave):
     global new_array
     global output
     global max_step
-    img = Image.open(pathLoad)
+    img = Image.open(pathLoad).convert('RGB')
     array = np.array(img)
     array = array.tolist()
+    while True:
+        if array[rowEnterPoint][colEnterPoint] == [255,255,255]:
+            print("You have chosen a white pixel,please try again.")
+            quit()
+        else:
+            break
     max_col = len(array[0])
     max_row = len(array)
     output = np.array(img)
@@ -110,17 +116,16 @@ def main(pathLoad,pathSave):
         new_array.append(temp_row)
     findEntry(new_array)
     q.put(new_array[rowEnterPoint][colEnterPoint])
+    print("Drawing the route...")
     while not q.empty():
         walk()
-    output = np.array(output)
+    print("Drawing done. Now outputing pic.")
     cmap = cm.get_cmap('plasma')
     color = cmap([int(i/(max_step+1)*255) for i in range(max_step+1)])
-    print(color)
     new_color = []
     for i in color:
         new_color.append([int(i[0]*255),int(i[1]*255),int(i[2]*255)])
     new_color = np.array(new_color)
-    #print(new_color)
     for i in range(max_row):
         for j in range(max_col):
             if output[i][j][0]!=255 and output[i][j][1]!=255 and output[i][j][2]!=255:
@@ -129,8 +134,7 @@ def main(pathLoad,pathSave):
                 output[i][j][2] = new_color[new_array[i][j][2]][2]
     img_tr = Image.fromarray(output).convert('RGB')
     img_tr.save(pathSave)
+    print("done")
     return
 
-#new_img = (location,color,step)
 main(pathLoad,pathSave)
-#def calc(new_img):
