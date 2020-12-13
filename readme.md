@@ -12,8 +12,7 @@
 
 matplotlib  PIL  Numpy（理论上没有版本限制）
 
-#### 不会安装？
-
+#### 不会安装？请查看tutor.md
 [安装python3与依赖教程]: tutor.md	"tutorial"
 
 ### 1.用法：
