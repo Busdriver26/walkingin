@@ -28,7 +28,9 @@ new_array = []
 max_step = 0
 output = np.full((1,3),0)
 
-os.chdir(os.path.dirname(sys.argv[0]))
+pt = os.path.dirname(sys.argv[0])
+if pt!= '':
+    os.chdir(os.path.dirname(sys.argv[0]))
 os.getcwd()
 
 pathLoad = input("Please input the name of your picture:(e.g. test.jpg, default:1.jpg)")
