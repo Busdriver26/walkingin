@@ -1,8 +1,16 @@
 # Walking in
 
+**Author: Bu5dr1v3r**
+
+**Inspired by : Ultra Guo**
+
 说明：
 
 为[0,0,0]和[255,255,255]的纯黑白图像设置一个进入点，并利用渐变色填充非白可视化路径。
+
+Moreover:
+
+可以作为全连接图的填色方案。
 
 目前渐变色方案：plasma
 
