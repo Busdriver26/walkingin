@@ -1,7 +1,13 @@
+print('{:*^80}'.format(" WALKING IN "))
+print("AUTHOR: BU5DR1V3R , INSPIRED BY ULTRA GUO.")
+print("Version -0.03, 2020/12/14")
+print("Make sure that your pic is in the same folder of this .exe")
+
 try:
     from PIL import Image, ImageDraw, ImageFont
 except:
     print("There is no PIL found in your environment.Please install it first.")
+    input("Press <enter>")
     quit()
 import os,sys
 try:
@@ -10,6 +16,7 @@ try:
     import matplotlib.pyplot as plt
 except:
     print("There is no numpy or matplotlib found in your environment.Please install it first.")
+    input("Press <enter>")
     quit()
 from queue import Queue
 
@@ -27,6 +34,12 @@ os.getcwd()
 pathLoad = input("Please input the name of your picture:(e.g. test.jpg, default:1.jpg)")
 if len(pathLoad)<=4:
     pathLoad = "1.jpg"
+try:
+    img = Image.open(pathLoad).convert('RGB')
+except:
+    print("Wrong path.Try again!")
+    input("Press <enter>")
+    quit()
 pathSave = input("Please input the name of the output picture:(e.g. out.jpg, default:1-out.jpg)")
 if len(pathSave)<=4:
     pathSave = "1-out.jpg"
@@ -54,6 +67,7 @@ def findEntry(array):
                     colEnterPoint = col[0][1]
                     return
         print("ERROR:ALL WHITE.")
+        input("Press <enter>")
         quit()
     return
 
@@ -102,11 +116,16 @@ def main(pathLoad,pathSave):
     while True:
         if array[rowEnterPoint][colEnterPoint] == [255,255,255]:
             print("You have chosen a white pixel,please try again.")
+            input("Press <enter>")
             quit()
         else:
             break
     max_col = len(array[0])
     max_row = len(array)
+    if rowEnterPoint<0 or rowEnterPoint>=max_row or colEnterPoint<0 or colEnterPoint>=max_col:
+        print("row or col out of range, please check your input!")
+        input("Press <enter>")
+        quit()
     output = np.array(img)
     flag = np.full((max_row,max_col),0)
     for i in range(max_row):
@@ -135,6 +154,8 @@ def main(pathLoad,pathSave):
     img_tr = Image.fromarray(output).convert('RGB')
     img_tr.save(pathSave)
     print("done")
+    input("Press <enter>")
+    quit()
     return
 
 main(pathLoad,pathSave)
