@@ -31,7 +31,7 @@ pathSave = input("Please input the name of the output picture:(e.g. out.jpg, def
 if len(pathSave)<=4:
     pathSave = "1-out.jpg"
 try:
-    print("*When you see the picture is 1234X5678, the 5678 is ROW and 1234 us COL")
+    print("*When you see the picture is 1234X5678, the 5678 is ROW and 1234 is COL")
     rowEnterPoint = int(input("Please input the ROW enter point:(e.g.123,default:0)"))
     colEnterPoint = int(input("Please input the COLUMN enter point:(e.g.456,default:0)"))
 except:
